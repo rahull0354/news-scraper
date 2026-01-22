@@ -4,7 +4,6 @@ package-lock.json
 
 # Output files
 output/
-*.json
 *.csv
 
 # Environment variables
