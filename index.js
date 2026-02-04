@@ -266,7 +266,7 @@ async function main() {
         await viewExamples();
         break;
       case '5':
-        console.log(chalk.cyan('\nGoodbye!\n'));
+        console.log(chalk.redBright('\nGoodbye!\n'));
         running = false;
         break;
       default:

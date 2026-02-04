@@ -2,10 +2,6 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { URL } from 'url';
 
-/**
- * NewsScraper Class
- * Provides methods to scrape news articles from static websites using Cheerio
- */
 class NewsScraper {
   constructor() {
     // Configuration options
@@ -16,12 +12,6 @@ class NewsScraper {
     };
   }
 
-  /**
-   * Main method to scrape news from a URL
-   * @param {string} url - The website URL to scrape
-   * @param {object} customOptions - Optional custom configuration
-   * @returns {Promise<Array>} - Array of scraped news articles
-   */
   async scrapeNews(url, customOptions = {}) {
     try {
       // Merge custom options with defaults
@@ -40,12 +30,6 @@ class NewsScraper {
     }
   }
 
-  /**
-   * Scrape website using Cheerio only
-   * @param {string} url - Website URL
-   * @param {object} options - Scraping options
-   * @returns {Promise<Array>} - Array of articles
-   */
   async scrapeWithCheerio(url, options) {
     try {
       // Fetch the HTML content
@@ -70,9 +54,6 @@ class NewsScraper {
     }
   }
 
-  /**
-   * Expose scrapeWithCheerio as tryStaticScraping for compatibility
-   */
   async tryStaticScraping(url, options) {
     return this.scrapeWithCheerio(url, options);
   }

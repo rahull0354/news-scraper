@@ -1,17 +1,7 @@
-/**
- * Pagination Handler Module
- *
- * Handles scraping multiple pages of news articles using Cheerio only.
- */
-
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { URL } from 'url';
 
-/**
- * PaginationHandler Class
- * Automatically detects and handles pagination on news websites
- */
 class PaginationHandler {
   constructor() {
     this.options = {
@@ -21,13 +11,6 @@ class PaginationHandler {
     };
   }
 
-  /**
-   * Scrape multiple pages from a paginated news site
-   * @param {string} url - Starting URL
-   * @param {object} scraper - NewsScraper instance
-   * @param {object} options - Custom options
-   * @returns {Promise<Array>} - Array of all articles from all pages
-   */
   async scrapeMultiplePages(url, scraper, options = {}) {
     const opts = { ...this.options, ...options };
     const allArticles = [];
@@ -85,12 +68,6 @@ class PaginationHandler {
     }
   }
 
-  /**
-   * Scrape a single page using the scraper
-   * @param {string} url - Page URL
-   * @param {object} scraper - NewsScraper instance
-   * @returns {Promise<Array>} - Array of articles
-   */
   async scrapePage(url, scraper) {
     try {
       const articles = await scraper.scrapeWithCheerio(url, scraper.options);
@@ -101,11 +78,6 @@ class PaginationHandler {
     }
   }
 
-  /**
-   * Find the next page link
-   * @param {string} currentUrl - Current page URL
-   * @returns {Promise<string|null>} - Next page URL or null
-   */
   async findNextPage(currentUrl) {
     try {
       const response = await axios.get(currentUrl, {
@@ -118,7 +90,7 @@ class PaginationHandler {
       const $ = cheerio.load(response.data);
       let nextPageUrl = null;
 
-      // Try multiple strategies to find next page link
+      // Trying multiple strategies to find next page link
 
       // Strategy 1: Look for common pagination selectors
       const nextSelectors = [
@@ -207,11 +179,6 @@ class PaginationHandler {
     }
   }
 
-  /**
-   * Extract page number from URL
-   * @param {string} url - URL to parse
-   * @returns {number} - Page number (defaults to 1)
-   */
   extractPageNumber(url) {
     // Try common patterns
     const patterns = [
@@ -231,13 +198,6 @@ class PaginationHandler {
     return 1;
   }
 
-  /**
-   * Validate that a URL is a valid pagination link
-   * @param {string} currentUrl - Current page URL
-   * @param {string} nextUrl - Next page candidate URL
-   * @param {object} options - Options object
-   * @returns {boolean} - True if valid pagination
-   */
   isValidPagination(currentUrl, nextUrl, options) {
     try {
       const current = new URL(currentUrl);
@@ -267,10 +227,6 @@ class PaginationHandler {
     }
   }
 
-  /**
-   * Delay helper function
-   * @param {number} ms - Milliseconds to delay
-   */
   delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
